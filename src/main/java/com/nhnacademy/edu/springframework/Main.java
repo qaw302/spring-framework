@@ -1,18 +1,16 @@
 package com.nhnacademy.edu.springframework;
 
+import com.nhnacademy.edu.springframework.messagesender.MessageSendService;
+import com.nhnacademy.edu.springframework.messagesender.MessageSender;
+import com.nhnacademy.edu.springframework.messagesender.impl.SmsMessageSender;
+
 public class Main {
     public static void main(String[] args) {
-        Main main = new Main();
         User user = new User("NHN@ACADEMY.com", "010-1111-2222");
-        String message = "polymorphism 실습 1";
-        main.sendSmsMessage(user, message);
-    }
+        String message = "polymorphism 실습 2";
+        MessageSender smsMessageSender = new SmsMessageSender();
+        MessageSendService messageSendService = new MessageSendService(smsMessageSender);
+        messageSendService.doSendMessage(user, message);
 
-    private void sendSmsMessage(User user, String message) {
-        System.out.println("[SMS] message sent to " +user.getPhoneNumber() + " : " + message);
-    }
-
-    private void sendEmailMessage(User user, String message) {
-        System.out.println("[Email] message sent to " +user.getPhoneNumber() + ":" + message);
     }
 }
